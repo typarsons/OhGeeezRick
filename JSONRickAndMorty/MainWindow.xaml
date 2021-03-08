@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <ListBox x:Name="lstCharacters" Margin="0,179,431,0" Background="#54FFFFFF" SelectionChanged="lstCharacters_SelectionChanged"/>
+        <Image x:Name="imgCharacter" HorizontalAlignment="Left" Height="237" Margin="420,185,0,0" VerticalAlignment="Top" Width="379" RenderTransformOrigin="0.5,0.5">
 
+        </Image>
     </Grid>
 </Window>
