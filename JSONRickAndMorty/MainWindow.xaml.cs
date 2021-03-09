@@ -22,54 +22,49 @@ namespace JSONRickAndMorty
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        //Tyler Parsons
+        //MIS 3033
+        //(P) JSON - Finish Rick & Morty
         public MainWindow()
         {
             InitializeComponent();
 
-           string url = "https://rickandmortyapi.com/api/character";
+              int i = 1;
 
-            //using (var client = new HttpClient())
-            //{
-            //    string jsonData = client.GetStringAsync(url).Result;
+              using (var client = new HttpClient())
 
-            //    RickAndMortyAPI api = JsonConvert.DeserializeObject<RickAndMortyAPI>(jsonData);
-
-            //    foreach (var character in api.results)
-            //    {
-            //        lstCharacters.Items.Add(character);
-            //    }
-            //}
-            using (var client = new HttpClient())
-            {
-                string jsonData = client.GetStringAsync(url).Result;
-
-                RickAndMortyAPI api = JsonConvert.DeserializeObject<RickAndMortyAPI>(jsonData);
-
-                //foreach (var character in api.results)
-                //{
-                //    lstCharacters.Items.Add(character);
-                //}
-
-                string urlNext = api.info.next;
-
-                string jsonData2 = client.GetStringAsync(urlNext).Result;
-
-                RickAndMortyAPI api2 = JsonConvert.DeserializeObject<RickAndMortyAPI>(jsonData2);
-
-                foreach (var character in api.results)
+            { while (i < 34)
                 {
-                    lstCharacters.Items.Add(character);
+                    i = i + 1;
 
-                }
-                
+                    string url = "https://rickandmortyapi.com/api/character/?page=" + Convert.ToString(i);
 
+                    string jsonData = client.GetStringAsync(url).Result;
 
+                    RickAndMortyAPI api = JsonConvert.DeserializeObject<RickAndMortyAPI>(jsonData);
+
+                    foreach (var character in api.results)
+                    {
+                        lstCharacters.Items.Add(character);
+                    }
+                }                // while this works, you need to use next
+                        //prof did this problem in class 3/9, much cleaner solution done correctly using next
             }
         }
         private void lstCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             var selectedCharacter = (Character)lstCharacters.SelectedItem;
-            imgCharacter.Source = new BitmapImage(new Uri(selectedCharacter.image));
+
+            ShowCharacterWindow wnd = new ShowCharacterWindow();
+
+            //imgCharacter.Source = new BitmapImage(new Uri(selectedCharacter.image));
+
+            wnd.SetUpWindow(selectedCharacter);
+
+            wnd.ShowDialog();
+
+            }
         }
     }
-}
